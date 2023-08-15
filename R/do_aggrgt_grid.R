@@ -23,7 +23,7 @@ do_aggrgt_grid <- function(
   b_avg2 <- rast(b_avg)
   
   if(do_save_tiffs){
-    terra::writeRaster(b_avg2, filename)
+    terra::writeRaster(b_avg2, filename, overwrite  = T)
   }
   b_avg2 <- terra::wrap(b_avg2)
   return(b_avg2)
