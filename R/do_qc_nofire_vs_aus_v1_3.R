@@ -64,9 +64,9 @@ do_qc_nofire_vs_aus_v1_3 <- function(
   
   # NEED THE BOUNDARY
   aus <- st_read("C:/Users/287658c/Nextcloud/Environment_General/Water_bodies_GA/Australian_maritime_boundaries_2014/data_provided/ocean_20210519.shp")
-  plot(ctm_total, ext = ext(big_list_annav[[2]]), col = terrain.colors(100),range = c(0,25)); title("CTM 2019 PM2.5 total")
+  plot(ctm_total, ext = ext(big_list_annav[[2]]), col = terrain.colors(100),range = c(0,10)); title("CTM 2019 PM2.5 total")
   plot(st_geometry(aus), add = T)
-  plot(ctm_nofire, ext = ext(big_list_annav[[2]]), col = terrain.colors(100),range = c(0,25)); title("CTM 2019 PM2.5 no fire")
+  plot(ctm_nofire, ext = ext(big_list_annav[[2]]), col = terrain.colors(100),range = c(0,10)); title("CTM 2019 PM2.5 no fire")
   plot(st_geometry(aus), add = T)
   plot(diff, ext = ext(big_list_annav[[2]]))
   plot(st_geometry(aus), add = T)
