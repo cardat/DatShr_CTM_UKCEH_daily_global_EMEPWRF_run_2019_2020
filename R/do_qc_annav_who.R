@@ -90,7 +90,7 @@ do_qc_annav_who <- function(
   
   with(merged_data[country_name == 'Australia'], plot(extracted_data, pm25_concentration , xlim = c(0,30), ylim = c(0,30)))
   abline(0,1)  
-  fit2 <- lm(pm25_concentration ~ extracted_data, data = merged_data[country_name == 'Malaysia'])
+  fit2 <- lm(pm25_concentration ~ extracted_data, data = merged_data[country_name == 'Australia'])
   abline(fit2, col = 'red')  
   summary(fit2)
   
