@@ -1,4 +1,9 @@
 # tar_load(dat_yy)
+# varlist=dat_yy
+# infile = file.path(datadir,"EMEP4UK_emep-ctm-rv4.36_wrf4.2.2_AUSTRALIA_BASE_trend2019_emiss2010_GLOBAL_2019_day.nc")
+# study_period = list(mindate="2019-01-01", maxdate ="2019-12-31")
+# var_i = "SURF_ug_PM25"
+# infile_annav_who = "C:/Users/287658c/OneDrive - Curtin/Shared/cardat_uploads_from_ivan/WHO_air_quality_database/WHO_air_quality_database_v6/data_provided/who_ambient_air_quality_database_version_2024_(v6.1).csv"
 
 do_qc_annav_who <- function(
     varlist=dat_yy
@@ -67,18 +72,27 @@ do_qc_annav_who <- function(
   # outdat2$date <- as.Date(gsub("\\.", "-", gsub("X","",outdat2$variable)))
   merged_data <- merge(dat2, outdat, by = c("city", "country_name"))
   
-  
-  with(merged_data, plot(pm25_concentration , extracted_data, xlim = c(0,120), ylim = c(0,120)))
+  par(cex = 1.4)
+  with(merged_data, plot(extracted_data, pm25_concentration , xlim = c(0,120), ylim = c(0,120), ylab = "WHO database PM2.5 annav", xlab = "UK CEH PM2.5 estimated annav", pch = 16, cex = 0.6))
   abline(0,1)  
-  fit <- lm(extracted_data ~ pm25_concentration, data = merged_data)
+  fit <- lm(pm25_concentration ~ extracted_data, data = merged_data)
   abline(fit, col = 'red')  
+  dev.off()
+  
   summary(fit)
   
-  with(merged_data[country_name == 'Malaysia'], plot(pm25_concentration , extracted_data, xlim = c(0,30), ylim = c(0,30)))
+  with(merged_data[country_name == 'Malaysia'], plot(extracted_data, pm25_concentration , xlim = c(0,30), ylim = c(0,30)))
   abline(0,1)  
-  fit2 <- lm(extracted_data ~ pm25_concentration, data = merged_data[country_name == 'Malaysia'])
+  fit2 <- lm(pm25_concentration ~ extracted_data, data = merged_data[country_name == 'Malaysia'])
   abline(fit2, col = 'red')  
   summary(fit2)
   
-  # with(merged_data[country_name == 'Australia'], points(pm25_concentration , extracted_data, pch = 16))
+  
+  with(merged_data[country_name == 'Australia'], plot(extracted_data, pm25_concentration , xlim = c(0,30), ylim = c(0,30)))
+  abline(0,1)  
+  fit2 <- lm(pm25_concentration ~ extracted_data, data = merged_data[country_name == 'Malaysia'])
+  abline(fit2, col = 'red')  
+  summary(fit2)
+  
+  ## TODO which countries are usually over estimated by the CTM?  Aus and Malaysia are underestimated
 }
